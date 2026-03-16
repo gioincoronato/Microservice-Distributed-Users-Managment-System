@@ -12,15 +12,16 @@ Database (MongoDB): A NoSQL database used by the User Service to store user docu
 Message Broker (Topic): Handles asynchronous event-driven communication (using STOMP pub / JMS sub). Whenever a user is successfully created, an event is published here.
 Notification Service (Java): An independent background service acting as a subscriber. It listens to the message broker topic via JMS to trigger post-creation workflows (e.g., sending welcome emails/notifications).
 
+```mermaid
 graph TD
-    Client[Client Python] -->|HTTP Request| Gateway(API Gateway Flask)
-    Gateway -->|HTTP Status| Client
+    Client[Client Python] -->|http| Gateway[API GATEWAY Flask]
+    Gateway -->|status| Client
     
-    Gateway -->|gRPC Request| UserService(User Service Py gRPC)
+    Gateway -->|gRPC Request| UserService[User Service Py gRPC]
     UserService -->|gRPC Response ACK/ERR| Gateway
     
-    UserService -->|Insert| DB[(MongoDB)]
+    UserService -->|insert| DB[(MongoDB)]
     DB -->|ACK/ERR| UserService
     
-    UserService -->|STOMP pub if success| Topic{Topic}
-    Topic -->|JMS sub| NotifService(Notification Service Java)
+    UserService -->|STOMP pub if success| Topic{topic}
+    Topic -->|JMS sub| NotifService[Notification SERVICE JAVA]
