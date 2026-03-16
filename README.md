@@ -22,6 +22,28 @@ The system is designed with scalability and decoupling in mind. The architecture
 
 ![Architecture Diagram](assets/architecture_diagram.png)
 
+## Design Decisions
+
+### Why an API Gateway?
+
+The API Gateway acts as the single entry point for external clients.  
+It decouples the public HTTP interface from the internal service architecture and allows internal services to evolve without exposing their implementation details.
+
+### Why gRPC for internal communication?
+
+gRPC is used for service-to-service communication because of its high performance and efficient binary serialization through Protocol Buffers.  
+It also provides strongly typed contracts between services, making the communication layer more reliable and maintainable.
+
+### Why asynchronous notifications?
+
+User creation can trigger additional workflows such as sending notifications.  
+By publishing an event to a message broker, the system avoids blocking the main request flow and allows other services to react independently in an event-driven manner.
+
+### Why polyglot services?
+
+The system intentionally uses both Python and Java services to demonstrate how heterogeneous microservices can communicate using standardized protocols and messaging systems.  
+This reflects real-world architectures where services are often implemented using different technologies.
+
 ## How It Works
 
 The data flow is designed to be fast and non-blocking:
