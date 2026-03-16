@@ -14,3 +14,7 @@ Notification Service (Java): An independent background service acting as a subsc
 
 ![Architecture Diagram](assets/architecture_diagram.png)
 
+
+
+https://github.com/user-attachments/assets/597038fc-77cf-4d45-ada5-14f0c3c59bc4
+
